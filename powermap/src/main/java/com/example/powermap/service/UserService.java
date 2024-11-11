@@ -14,19 +14,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     // Método para registrar um novo usuário com papel de ADMIN
     public User registerAdmin(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));  // Codifica a senha
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));  // Codifica a senha
         user.getRoles().add("ROLE_ADMIN");  // Adiciona o papel de ADMIN
         return userRepository.save(user);  // Salva o usuário no banco de dados
     }
 
     // Método para registrar um novo usuário com papel de USER
     public User registerUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));  // Codifica a senha
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));  // Codifica a senha
         user.getRoles().add("ROLE_USER");  // Adiciona o papel de USER
         return userRepository.save(user);
     }
@@ -34,9 +34,9 @@ public class UserService {
     // Autenticar usuário pelo email e senha
     public Optional<User> authenticate(String email, String password) {
         Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent() && passwordEncoder.matches(password, userOpt.get().getPassword())) {
-            return userOpt;
-        }
+//        if (userOpt.isPresent() && passwordEncoder.matches(password, userOpt.get().getPassword())) {
+//            return userOpt;
+//        }
         return Optional.empty();  // Retorna vazio se a autenticação falhar
     }
 
@@ -45,9 +45,9 @@ public class UserService {
         return userRepository.findById(userId).map(user -> {
             user.setName(updatedUser.getName());
             user.setEmail(updatedUser.getEmail());
-            if (!updatedUser.getPassword().isBlank()) {
-                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-            }
+//            if (!updatedUser.getPassword().isBlank()) {
+//                user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+//            }
             return userRepository.save(user);
         });
     }
