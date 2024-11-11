@@ -3,7 +3,7 @@ package com.example.powermap.service;
 import com.example.powermap.model.User;
 import com.example.powermap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
