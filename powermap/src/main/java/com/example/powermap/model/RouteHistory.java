@@ -1,5 +1,6 @@
 package com.example.powermap.model;
 
+import com.example.powermap.model.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,11 +1,9 @@
 package com.example.powermap.repository;
 
-import com.example.powermap.model.User;
+import com.example.powermap.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByEmail(String email);
+    UserDetails findByEmail(String email);
 }
