@@ -27,14 +27,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/*").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/*").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/routes/*").permitAll()
-                        //.requestMatchers(HttpMethod.POST,"/user").hasRole("ADMIN")
+                        .requestMatchers("/auth/**").permitAll() // Para todos os métodos em /auth/*
+                        .requestMatchers("/api/routes/**").permitAll() // Para todos os métodos em /api/routes
+                        .requestMatchers("/api/**").permitAll() // Para todos os métodos em /api/*
+                        //.requestMatchers(HttpMethod.POST,"/api/route-history/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+
     }
 
     @Bean
