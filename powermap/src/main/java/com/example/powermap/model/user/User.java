@@ -1,6 +1,7 @@
 package com.example.powermap.model.user;
 
-import com.example.powermap.model.RouteHistory;
+import com.example.powermap.model.Route;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.Set;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,26 +43,27 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @NotBlank(message = "O cpf ou cnpj é obrigatório.")
+    @Column(nullable = false, unique = true)
+    private String cpfCnpj;
+
     @Enumerated(EnumType.STRING) // Persiste o valor do enum como texto no banco de dados
     @Column(name = "role") // Define o nome da coluna no banco de dados
     private UserRole role;
 
-
-    public User(String email,String password,String name, UserRole role){
+    // Construtor adicional
+    public User(String email, String password, String name,String cpfCnpj, UserRole role) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.role = role;
+        this.cpfCnpj = cpfCnpj;
     }
 
-
-    // Relacionamento com histórico de rotas (um usuário pode ter vários históricos)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RouteHistory> routeHistories = new HashSet<>();
+    @JsonIgnore // Evita loops durante a serialização
+    private Set<Route> routes = new HashSet<>();
 
-    // Relacionamento com rotas favoritas
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RouteHistory> favoriteRoutes = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,4 +1,4 @@
-package com.example.powermap.service;
+/*package com.example.powermap.service;
 
 import com.example.powermap.model.user.User;
 import com.example.powermap.model.user.UserRole;
@@ -47,10 +47,10 @@ public class UserService {
 //            }
             return userRepository.save(user);
         });
-    }*/
+    }
 
     // Excluir usuário
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
-}
+}*/

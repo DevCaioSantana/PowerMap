@@ -1,4 +1,4 @@
-package com.example.powermap.controller;
+/*package com.example.powermap.controller;
 
 import com.example.powermap.model.user.User;
 import com.example.powermap.service.UserService;
@@ -43,7 +43,7 @@ public class UserController {
         Optional<User> updated = userService.updateUser(userId, updatedUser);
         return updated.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-    }*/
+    }
 
     // Endpoint para excluir usuário
     @DeleteMapping("/{userId}")
@@ -51,4 +51,4 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
-}
+}*/
